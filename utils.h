@@ -27,7 +27,7 @@
 #endif
 
 #if defined(__WINDOWS_32__) || defined(__WINDOWS_64__)
-	#define __WINDOWS__
+    #define __WINDOWS__
 #endif
 
 #if defined(__linux__) || defined(linux)
@@ -87,12 +87,12 @@
 #define SINGLETON(x) \
 private:\
     x();\
-	x( x const& ) = delete;\
-	x( x && ) = delete;\
-	x& operator=( x const& ) = delete;\
-	x& operator=( x && ) = delete;\
+    x( x const& ) = delete;\
+    x( x && ) = delete;\
+    x& operator=( x const& ) = delete;\
+    x& operator=( x && ) = delete;\
 public:\
-	static x& Inst()
+    static x& Inst()
 
 #include <string>
 
