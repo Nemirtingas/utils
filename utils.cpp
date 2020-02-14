@@ -43,7 +43,7 @@ BOOL WINAPI DllMain( HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved )
     return TRUE;
 }
 
-#elif defined(__LINUX__)//defined(__WINDOWS__)
+#elif defined(__LINUX__) || defined(__APPLE__) //defined(__WINDOWS__)
 #include <dlfcn.h>
 
 __attribute__((constructor)) LOCAL_API void __so_load__() 
@@ -60,11 +60,7 @@ __attribute__((destructor)) LOCAL_API void __so_unload__()
     shared_library_unload(infos.dli_fbase);
 }
 
-#elif defined(__APPLE__)//defined(__LINUX__)
-
-
-
-#endif//defined(__APPLE__)
+#endif//defined(__LINUX__) || defined(__APPLE__)
 #endif//defined(__EXPORT_SYMBOLS__)
 
 LOCAL_API std::string& ltrim(std::string& str)
