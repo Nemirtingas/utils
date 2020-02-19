@@ -64,7 +64,7 @@
 
     #define LOCAL_API
 
-#elif defined(__LINUX__)// defined(__WINDOWS__)
+#elif defined(__LINUX__) || defined(__APPLE__)// defined(__WINDOWS__)
 
     #ifdef __EXPORT_SYMBOLS__
         #define EXPORT_API extern "C" __attribute__((visibility ("default")))
@@ -74,11 +74,6 @@
 
     #define LOCAL_API __attribute__((visibility ("internal")))
     //#define LOCAL_API __attribute__((visibility ("hidden")))
-
-#elif defined(__APPLE__)// defined(__LINUX__)
-
-    #define LOCAL_API
-    #define EXPORT_API
 
 #endif // defined(__APPLE__)
 
