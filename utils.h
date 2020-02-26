@@ -78,17 +78,6 @@
 #endif // defined(__APPLE__)
 
 #include <cstdint>
-
-#define SINGLETON(x) \
-private:\
-    x();\
-    x( x const& ) = delete;\
-    x( x && ) = delete;\
-    x& operator=( x const& ) = delete;\
-    x& operator=( x && ) = delete;\
-public:\
-    static x& Inst()
-
 #include <string>
 
 // switch case on a string
