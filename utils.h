@@ -159,11 +159,48 @@ struct ichar_traits : public std::char_traits<char>
 
 typedef std::basic_string<char, ichar_traits> istring;
 
+///
+///
+///
+///
+///
 LOCAL_API std::string& ltrim(std::string& str);
 LOCAL_API std::string& rtrim(std::string& str);
 LOCAL_API std::string& trim(std::string& str);
 LOCAL_API std::string& to_lower(std::string& str);
 LOCAL_API std::string& to_upper(std::string& str);
+
+///
+///
+///
+///
+template<typename Enum>
+struct EnableBitMaskOperators
+{
+    static constexpr bool enable = false;
+};
+
+///
+///
+///
+///
+template<typename Enum>
+constexpr typename std::enable_if<EnableBitMaskOperators<Enum>::enable, Enum>::type
+operator |(Enum lhs, Enum rhs)
+{
+    using underlying = typename std::underlying_type<Enum>::type;
+    return static_cast<Enum> (
+        static_cast<underlying>(lhs) |
+        static_cast<underlying>(rhs)
+        );
+}
+
+#define UTILS_ENABLE_BITMASK_OPERATORS(T) \
+template<>                                \
+struct EnableBitMaskOperators<T>          \
+{                                         \
+    static constexpr bool enable = true;  \
+}
 
 #ifdef __EXPORT_SYMBOLS__
 void LOCAL_API shared_library_load(void* hmodule);
