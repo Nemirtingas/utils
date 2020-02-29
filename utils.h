@@ -54,26 +54,27 @@
     #endif
 #endif
 
+#ifdef __cplusplus
+    #define EXPORT_C_API   extern "C"
+#else
+    #define EXPORT_C_API   extern
+#endif
+#define EXPORT_CXX_API extern
+
 #if defined(__WINDOWS__)
 
-    #ifdef __EXPORT_SYMBOLS__
-        #define EXPORT_API extern "C" __declspec(dllexport)
-    #else
-        #define EXPORT_API extern "C" __declspec(dllimport)
-    #endif
+    #define EXPORT_API(mode) __declspec(mode)
+    #define EXPORT_STATIC_API
 
     #define LOCAL_API
 
 #elif defined(__LINUX__) || defined(__APPLE__)// defined(__WINDOWS__)
 
-    #ifdef __EXPORT_SYMBOLS__
-        #define EXPORT_API extern "C" __attribute__((visibility ("default")))
-    #else
-        #define EXPORT_API extern "C" __attribute__((visibility ("default")))
-    #endif
+    #define EXPORT_API(mode) __attribute__((visibility ("default")))
+    #define EXPORT_STATIC_API EXPORT_API(static)
 
-    #define LOCAL_API __attribute__((visibility ("internal")))
-    //#define LOCAL_API __attribute__((visibility ("hidden")))
+    //#define LOCAL_API __attribute__((visibility ("internal")))
+    #define LOCAL_API __attribute__((visibility ("hidden")))
 
 #endif // defined(__APPLE__)
 
