@@ -151,14 +151,14 @@ typedef std::basic_string<char, ichar_traits> istring;
 
 ///
 ///
+/// String operations
 ///
 ///
-///
-LOCAL_API std::string& ltrim(std::string& str);
-LOCAL_API std::string& rtrim(std::string& str);
-LOCAL_API std::string& trim(std::string& str);
-LOCAL_API std::string& to_lower(std::string& str);
-LOCAL_API std::string& to_upper(std::string& str);
+LOCAL_API std::string  ltrim   (std::string const& str);
+LOCAL_API std::string  rtrim   (std::string const& str);
+LOCAL_API std::string  trim    (std::string const& str);
+LOCAL_API std::string  to_lower(std::string const& str);
+LOCAL_API std::string  to_upper(std::string const& str);
 
 ///
 ///

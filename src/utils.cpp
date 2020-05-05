@@ -63,8 +63,9 @@ __attribute__((destructor)) LOCAL_API void __so_unload__()
 #endif//defined(__LINUX__) || defined(__APPLE__)
 #endif//defined(__EXPORT_SYMBOLS__)
 
-LOCAL_API std::string& ltrim(std::string& str)
+LOCAL_API std::string ltrim(std::string const& _str)
 {
+    std::string str(_str);
     str.erase(str.begin(), std::find_if(str.begin(), str.end(), [](const char& c)
     {
         return !std::isspace(c);
@@ -72,8 +73,9 @@ LOCAL_API std::string& ltrim(std::string& str)
     return str;
 }
 
-LOCAL_API std::string& rtrim(std::string& str)
+LOCAL_API std::string rtrim(std::string const& _str)
 {
+    std::string str(_str);
     str.erase(std::find_if(str.rbegin(), str.rend(), [](const char& c)
     {
         return !std::isspace(c);
@@ -81,13 +83,15 @@ LOCAL_API std::string& rtrim(std::string& str)
     return str;
 }
 
-LOCAL_API std::string& trim(std::string& str)
+LOCAL_API std::string trim(std::string const& _str)
 {
+    std::string str(_str);
     return rtrim(ltrim(str));
 }
 
-LOCAL_API std::string& to_lower(std::string& str)
+LOCAL_API std::string to_lower(std::string const& _str)
 {
+    std::string str(_str);
     std::transform(str.begin(), str.end(), str.begin(), [](unsigned char c)
     {
         return std::tolower(c);
@@ -96,8 +100,9 @@ LOCAL_API std::string& to_lower(std::string& str)
     return str;
 }
 
-LOCAL_API std::string& to_upper(std::string& str)
+LOCAL_API std::string to_upper(std::string const& _str)
 {
+    std::string str(_str);
     std::transform(str.begin(), str.end(), str.begin(), [](unsigned char c)
     {
         return std::toupper(c);
