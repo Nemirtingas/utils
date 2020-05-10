@@ -246,6 +246,12 @@ struct EnableBitMaskOperators<T>          \
     static constexpr bool enable = true;  \
 }
 
+template<typename T>
+constexpr typename std::underlying_type<T>::type get_enum_value(T enum_value)
+{
+    return static_cast<typename std::underlying_type<T>::type>(enum_value);
+}
+
 #ifdef __EXPORT_SYMBOLS__
 void LOCAL_API shared_library_load(void* hmodule);
 void LOCAL_API shared_library_unload(void* hmodule);
