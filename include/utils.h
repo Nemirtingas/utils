@@ -125,6 +125,12 @@ constexpr size_t static_strlen(const wchar_t(&)[N])
 {
     return N-1;
 }
+
+template<typename T, size_t N>
+constexpr size_t count_elements(T(&)[N])
+{
+    return N;
+}
 //
 
 // Case insensible string
