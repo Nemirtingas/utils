@@ -119,6 +119,12 @@ constexpr size_t static_strlen(const char(&)[N])
 {
     return N-1;
 }
+
+template<size_t N>
+constexpr size_t static_strlen(const wchar_t(&)[N])
+{
+    return N-1;
+}
 //
 
 // Case insensible string
