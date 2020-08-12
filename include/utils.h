@@ -85,7 +85,7 @@
 #ifdef __32BITS__
 constexpr uint32_t _hash(const char *input)
 {
-  return (*input ? static_cast<uint32_t>(*input) + 33 * _hash(input + 1) : 5381);
+  return (*input ? static_cast<uint32_t>(*input) + 37 * _hash(input + 1) : 5381);
 }
 
 inline uint32_t _hash(const std::string &input)
@@ -95,7 +95,7 @@ inline uint32_t _hash(const std::string &input)
 #else
 constexpr uint64_t _hash(const char* input)
 {
-    return (*input ? static_cast<uint64_t>(*input) + 33 * _hash(input + 1) : 5381);
+    return (*input ? static_cast<uint64_t>(*input) + 37 * _hash(input + 1) : 5381);
 }
 
 inline uint64_t _hash(const std::string& input)
