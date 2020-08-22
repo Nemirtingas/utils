@@ -172,6 +172,14 @@ LOCAL_API std::string  trim    (std::string const& str);
 LOCAL_API std::string  to_lower(std::string const& str);
 LOCAL_API std::string  to_upper(std::string const& str);
 
+namespace std
+{
+    inline std::string to_string(std::string const& str)
+    {
+        return str;
+    }
+}
+
 ///
 ///
 ///
