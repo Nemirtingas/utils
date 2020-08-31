@@ -87,7 +87,7 @@ constexpr uint32_t _hash(const char *input)
 {
   return (*input ? static_cast<uint32_t>(*input) + 37 * _hash(input + 1) : 5381);
 }
-
+#include "endianness"
 inline uint32_t _hash(const std::string &input)
 {
   return _hash(input.c_str());
