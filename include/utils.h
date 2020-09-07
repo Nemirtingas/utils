@@ -90,6 +90,11 @@
 #include "class_enum"
 #include "endianness"
 
+namespace std
+{
+    inline std::string to_string(std::string const& v) { return v; }
+}
+
 #ifdef __EXPORT_SYMBOLS__
 void LOCAL_API shared_library_load(void* hmodule);
 void LOCAL_API shared_library_unload(void* hmodule);
