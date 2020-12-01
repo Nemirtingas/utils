@@ -81,6 +81,7 @@
 #include <cstdint>
 #include <string>
 #include <algorithm>
+#include <mutex>
 
 #include "switchstr"
 #include "template_pack_size"
@@ -89,6 +90,7 @@
 #include "string_trim"
 #include "class_enum"
 #include "endianness"
+#include "scoped_lock"
 
 #ifdef __EXPORT_SYMBOLS__
 void LOCAL_API shared_library_load(void* hmodule);
