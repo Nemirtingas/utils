@@ -80,8 +80,10 @@
 
 #include <cstdint>
 #include <string>
+#include <cstring>
 #include <algorithm>
 #include <mutex>
+#include <iterator>
 
 #include "switchstr"
 #include "template_pack_size"
