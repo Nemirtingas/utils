@@ -18,41 +18,7 @@
 #ifndef UTILS_H_INCLUDED
 #define UTILS_H_INCLUDED
 
-#if defined(WIN64) || defined(_WIN64) || defined(__MINGW64__)
-    #define __WINDOWS_64__
-    #define __64BITS__
-#elif defined(WIN32) || defined(_WIN32) || defined(__MINGW32__)
-    #define __WINDOWS_32__
-    #define __32BITS__
-#endif
-
-#if defined(__WINDOWS_32__) || defined(__WINDOWS_64__)
-    #define __WINDOWS__
-#endif
-
-#if defined(__linux__) || defined(linux)
-    #if defined(__x86_64__)
-        #define __LINUX_64__
-        #define __64BITS__
-    #else
-        #define __LINUX_32__
-        #define __32BITS__
-    #endif
-#endif
-
-#if defined(__LINUX_32__) || defined(__LINUX_64__)
-    #define __LINUX__
-#endif
-
-#if defined(__APPLE__)
-    #if defined(__x86_64__)
-        #define __APPLE_64__
-        #define __64BITS__
-    #else
-        #define __APPLE_32__
-        #define __32BITS__
-    #endif
-#endif
+#include "utils_osdetector"
 
 #ifdef __cplusplus
     #define EXPORT_C_API   extern "C"
@@ -61,14 +27,14 @@
 #endif
 #define EXPORT_CXX_API extern
 
-#if defined(__WINDOWS__)
+#if defined(UTILS_OS_WINDOWS)
 
     #define EXPORT_API(mode) __declspec(mode)
     #define EXPORT_STATIC_API
 
     #define LOCAL_API
 
-#elif defined(__LINUX__) || defined(__APPLE__)// defined(__WINDOWS__)
+#elif defined(UTILS_OS_LINUX) || defined(UTILS_OS_APPLE)
 
     #define EXPORT_API(mode) __attribute__((visibility ("default")))
     #define EXPORT_STATIC_API EXPORT_API(static)
@@ -76,7 +42,7 @@
     //#define LOCAL_API __attribute__((visibility ("internal")))
     #define LOCAL_API __attribute__((visibility ("hidden")))
 
-#endif // defined(__APPLE__)
+#endif
 
 #include <cstdint>
 #include <string>
