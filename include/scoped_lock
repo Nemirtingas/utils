@@ -62,10 +62,26 @@ public:
     explicit scoped_lock(Args&... mutexes) : _val(new templated_value_holder<Args&...>(mutexes...)) { }
 
     template<typename... Args>
-    explicit scoped_lock(std::adopt_lock_t, Args&... mutexes) : _val(new templated_value_holder<Args...>(std::adopt_lock, mutexes...)) { }
+    explicit scoped_lock(std::adopt_lock_t, Args&... mutexes) : _val(new templated_value_holder<Args&...>(std::adopt_lock, mutexes...)) { }
 
+    explicit scoped_lock(scoped_lock && other):
+        _val(other._val)
+    {
+        other._val = nullptr;
+    }
+
+    scoped_lock() noexcept:
+        _val(nullptr)
+    {}
     ~scoped_lock() noexcept { delete _val; }
     
+    scoped_lock& operator=(scoped_lock && other)
+    {
+        _val = other._val;
+        other._val = nullptr;
+        return *this;
+    }
+
     scoped_lock(const scoped_lock&) = delete;
     scoped_lock& operator=(const scoped_lock&) = delete;
 };
