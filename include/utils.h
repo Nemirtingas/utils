@@ -56,6 +56,7 @@
 #include "constexpr_strlen"
 #include "istring"
 #include "string_trim"
+#include "string_join"
 #include "class_enum"
 #include "endianness"
 #include "scoped_lock"

@@ -1,0 +1,56 @@
+/* Copyright (C) Nemirtingas
+ * This file is part of utils.
+ *
+ * utils is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * utils is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with utils.  If not, see <https://www.gnu.org/licenses/>
+ */
+
+namespace utils {
+    
+    template<typename IteratorType>
+    inline std::string string_join(IteratorType begin, IteratorType end, const std::string &sep)
+    {
+        std::string res;
+
+        if (begin != end)
+            res += *begin++;
+
+        while(begin != end)
+        {
+            res += sep;
+            res += *begin++;
+        }
+
+        return res;
+    }
+
+    template<typename T>
+    inline std::string string_join(T const& container, const std::string &sep)
+    {
+        std::string res;
+
+        auto begin = std::begin(container);
+        auto end = std::end(container);
+
+        if (begin != end)
+            res += *begin++;
+
+        while(begin != end)
+        {
+            res += sep;
+            res += *begin++;
+        }
+
+        return res;
+    }
+}
