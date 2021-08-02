@@ -21,7 +21,7 @@ namespace utils {
         std::string str(_str);
         str.erase(str.begin(), std::find_if(str.begin(), str.end(), [](const char& c)
         {
-            return !std::isspace(c);
+            return !std::isspace((unsigned char)c);
         }));
         return str;
     }
@@ -31,7 +31,7 @@ namespace utils {
         std::string str(_str);
         str.erase(std::find_if(str.rbegin(), str.rend(), [](const char& c)
         {
-            return !std::isspace(c);
+            return !std::isspace((unsigned char)c);
         }).base(), str.end());
         return str;
     }
