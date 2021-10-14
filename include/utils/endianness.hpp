@@ -15,6 +15,11 @@
  * along with utils.  If not, see <https://www.gnu.org/licenses/>
  */
 
+#pragma once
+
+#include <cstddef> // size_t
+#include <cstdint> // uint*_t
+
 namespace utils {
 	class Endian
     {
@@ -25,14 +30,6 @@ namespace utils {
         template<typename T, size_t byte_count>
         struct ByteSwapImpl
         {
-            constexpr static inline T swap(T v)
-            {// Generic byte swapping (allows odd numbers)
-                uint8_t* tmp = reinterpret_cast<uint8_t*>(&v);
-                for (int i = 0; i < (byte_count / 2); ++i)
-                    std::swap(tmp[i], tmp[byte_count - 1 - i]);
-
-                return v;
-            }
         };
 
         template<typename T>

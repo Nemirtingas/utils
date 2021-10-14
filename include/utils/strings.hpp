@@ -15,8 +15,65 @@
  * along with utils.  If not, see <https://www.gnu.org/licenses/>
  */
 
+#pragma once
+
+#include <string>
+#include <algorithm>
+
 namespace utils {
-    
+    static inline std::string ltrim(std::string str)
+    {
+        str.erase(str.begin(), std::find_if(str.begin(), str.end(), [](const char& c)
+        {
+            return !std::isspace((unsigned char)c);
+        }));
+
+        return str;
+    }
+
+    static inline std::string rtrim(std::string str)
+    {
+        str.erase(std::find_if(str.rbegin(), str.rend(), [](const char& c)
+        {
+            return !std::isspace((unsigned char)c);
+        }).base(), str.end());
+
+        return str;
+    }
+
+    static inline std::string trim(std::string str)
+    {
+        return rtrim(ltrim(str));
+    }
+
+    static inline std::string to_lower(std::string str)
+    {
+        for (auto& c : str)
+        {
+            c = std::tolower(c);
+        }
+        return str;
+    }
+
+    static inline std::string to_lower(const char* str)
+    {
+        return utils::to_lower(std::string{ str });
+    }
+
+    static inline std::string to_upper(std::string str)
+    {
+        for (auto& c : str)
+        {
+            c = std::toupper(c);
+        }
+        return str;
+    }
+
+    static inline std::string to_upper(const char* str)
+    {
+        return utils::to_upper(std::string{ str });
+    }
+
     template<typename IteratorType>
     inline std::string string_join(IteratorType begin, IteratorType end, const std::string &sep)
     {

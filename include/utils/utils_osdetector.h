@@ -15,7 +15,7 @@
  * along with utils.  If not, see <https://www.gnu.org/licenses/>
  */
 
- namespace utils {
+#pragma once
 
 #if defined(WIN64) || defined(_WIN64) || defined(__MINGW64__)
     #define UTILS_OS_WINDOWS
@@ -42,5 +42,3 @@
 #else
     //#error "Unknown OS"
 #endif
-
-}// namespace utils

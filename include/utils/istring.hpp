@@ -15,6 +15,10 @@
  * along with utils.  If not, see <https://www.gnu.org/licenses/>
  */
 
+#pragma once
+
+#include <string>
+
 namespace utils {
     // Case insensible string
     struct ichar_traits : public std::char_traits<char>

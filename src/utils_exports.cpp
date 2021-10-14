@@ -15,10 +15,9 @@
  * along with utils.  If not, see <https://www.gnu.org/licenses/>
  */
 
-#include <utils/utils.h>
-#include <algorithm>
+#include <utils/utils_exports.h>
 
-#ifdef __EXPORT_SYMBOLS__
+#ifdef UTILS_EXPORT_LIBRARY
 #if defined(UTILS_OS_WINDOWS)
 
 #define VC_EXTRALEAN
@@ -43,22 +42,22 @@ BOOL WINAPI DllMain( HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved )
     return TRUE;
 }
 
-#elif defined(UTILS_OS_LINUX) || defined(UTILS_OS_APPLE) //defined(UTILS_OS_WINDOWS)
+#elif defined(UTILS_OS_LINUX) || defined(UTILS_OS_APPLE)
 #include <dlfcn.h>
 
-__attribute__((constructor)) LOCAL_API void __so_load__() 
+__attribute__((constructor)) UTILS_LOCAL_API void __utils_library_load__()
 {
     Dl_info infos;
-    dladdr((void*)&__so_load__, &infos);
+    dladdr((void*)&__utils_library_load__, &infos);
     shared_library_load(infos.dli_fbase);
 }
 
-__attribute__((destructor)) LOCAL_API void __so_unload__()
+__attribute__((destructor)) UTILS_LOCAL_API void __utils_library_unload__()
 {
     Dl_info infos;
-    dladdr((void*)&__so_load__, &infos);
+    dladdr((void*)&__utils_library_load__, &infos);
     shared_library_unload(infos.dli_fbase);
 }
 
 #endif//defined(UTILS_OS_LINUX) || defined(UTILS_OS_APPLE)
-#endif//defined(__EXPORT_SYMBOLS__)
+#endif//defined(UTILS_EXPORT_LIBRARY)

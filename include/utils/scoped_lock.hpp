@@ -15,6 +15,11 @@
  * along with utils.  If not, see <https://www.gnu.org/licenses/>
  */
 
+#pragma once
+
+#include <tuple>
+#include <mutex>
+
 namespace utils {
 
 class scoped_lock {

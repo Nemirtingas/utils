@@ -15,6 +15,10 @@
  * along with utils.  If not, see <https://www.gnu.org/licenses/>
  */
 
+#pragma once
+
+#include <type_traits>
+
 namespace utils {
     template<typename Enum>
     struct EnableBitMaskOperators
@@ -23,7 +27,7 @@ namespace utils {
     };
 
     template<typename T>
-    constexpr typename std::underlying_type<T>::type get_enum_value(T enum_value)
+    constexpr typename std::underlying_type<T>::type GetEnumValue(T enum_value)
     {
         return static_cast<typename std::underlying_type<T>::type>(enum_value);
     }

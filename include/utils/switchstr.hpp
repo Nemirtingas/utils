@@ -15,24 +15,13 @@
  * along with utils.  If not, see <https://www.gnu.org/licenses/>
  */
 
+#pragma once
+
+#include <cstdint>
+#include <string>
+
 namespace utils {
     // switch case on a string
-#ifdef UTILS_ARCH_X86
-    constexpr uint32_t _hash(const char *input)
-    {
-      return (*input ? static_cast<uint32_t>(*input) + 33 * _hash(input + 1) : 5381);
-    }
-
-    constexpr uint32_t _hash(const char *input, size_t len)
-    {
-      return (len > 0 ? static_cast<uint32_t>(*input) + 33 * _hash(input + 1, len -1) : 5381);
-    }
-
-    inline uint32_t _hash(const std::string &input)
-    {
-      return _hash(input.c_str());
-    }
-#else
     constexpr uint64_t _hash(const char* input)
     {
         return (*input ? static_cast<uint64_t>(*input) + 33 * _hash(input + 1) : 5381);
@@ -47,7 +36,6 @@ namespace utils {
     {
         return _hash(input.c_str());
     }
-#endif
 }
 
 #define switchstr(x) switch( utils::_hash(x) )

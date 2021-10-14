@@ -15,22 +15,27 @@
  * along with utils.  If not, see <https://www.gnu.org/licenses/>
  */
 
+#pragma once
+
+#include <cstddef> // size_t
+
 namespace utils {
-    template<size_t N>
-    constexpr size_t static_strlen(const char(&)[N])
-    {
-        return N-1;
-    }
-
-    template<size_t N>
-    constexpr size_t static_strlen(const wchar_t(&)[N])
-    {
-        return N-1;
-    }
-
     template<typename T, size_t N>
-    constexpr size_t count_elements(T(&)[N])
+    constexpr size_t count_of(T(&)[N])
     {
         return N;
     }
+
+    template<typename T, size_t N>
+    constexpr size_t static_strlen(T(&)[N])
+    {
+        return N-1;
+    }
+
+    // Sum of all parameter pack sizeof
+    template <typename... Ts>
+    constexpr size_t size_of = 0;
+
+    template <typename T, typename... Ts>
+    constexpr size_t size_of<T, Ts...> = sizeof(T) + size_of<Ts...>;
 }
