@@ -20,29 +20,49 @@
 #include "utils_osdetector.h"
 
 #ifdef __cplusplus
-    #define UTILS_EXPORT_C_API   extern "C"
-    #define UTILS_EXPORT_CXX_API extern
+    #define UTILS_EXTERN_C   extern "C"
+    #define UTILS_EXTERN_CXX extern
 #else
-    #define UTILS_EXPORT_C_API   extern
-    #define UTILS_EXPORT_CXX_API #error "No C++ export in C"
+    #define UTILS_EXTERN_C   extern
+    #define UTILS_EXTERN_CXX #error "No C++ export in C"
 #endif
 
 #if defined(UTILS_OS_WINDOWS)
 
-    #define UTILS_EXPORT_API(mode) __declspec(mode)
+    #define UTILS_CALL_DEFAULT 
+    #define UTILS_CALL_STDL    __stdcall
+    #define UTILS_CALL_CDECL   __cdecl
+    #define UTILS_CALL_FAST    __fastcall
+    #define UTILS_CALL_THIS    __thiscall
 
-    #define UTILS_LOCAL_API
+    #define UTILS_MODE_DEFAULT
+    #define UTILS_MODE_EXPORT  __declspec(dllexport)
+    #define UTILS_MODE_IMPORT  __declspec(dllimport)
+    #define UTILS_MODE_HIDDEN 
+
+    #define UTILS_EXPORT_C_API(return_type, mode, call_convention) UTILS_EXTERN_C mode return_type call_convention
 
 #elif defined(UTILS_OS_LINUX) || defined(UTILS_OS_APPLE)
 
-    #define UTILS_EXPORT_API(mode) __attribute__((visibility ("default")))
+    #define UTILS_CALL_DEFAULT 
+    #define UTILS_CALL_STD     __attribute__((stdcall))
+    #define UTILS_CALL_CDECL   __attribute__((cdecl))
+    #define UTILS_CALL_FAST    __attribute__((fastcall))
+    #define UTILS_CALL_THIS    __attribute__((thiscall))
+
+    #define UTILS_MODE_DEFAULT
+    #define UTILS_MODE_EXPORT  __attribute__((visibility("default")))
+    #define UTILS_MODE_IMPORT  __attribute__((visibility("default")))
+    #define UTILS_MODE_HIDDEN  __attribute__((visibility("hidden")))
+
+    #define UTILS_EXPORT_C_API(return_type, mode, call_convention) UTILS_EXTERN_C return_type mode call_convention
 
     //#define LOCAL_API __attribute__((visibility ("internal")))
-    #define UTILS_LOCAL_API __attribute__((visibility ("hidden")))
+    //#define UTILS_LOCAL_API __attribute__((visibility ("hidden")))
 
 #endif
 
 #ifdef UTILS_EXPORT_LIBRARY
-void UTILS_LOCAL_API shared_library_load(void* hmodule);
-void UTILS_LOCAL_API shared_library_unload(void* hmodule);
+void shared_library_load(void* hmodule);
+void shared_library_unload(void* hmodule);
 #endif

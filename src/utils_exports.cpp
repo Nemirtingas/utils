@@ -45,14 +45,14 @@ BOOL WINAPI DllMain( HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved )
 #elif defined(UTILS_OS_LINUX) || defined(UTILS_OS_APPLE)
 #include <dlfcn.h>
 
-__attribute__((constructor)) UTILS_LOCAL_API void __utils_library_load__()
+__attribute__((constructor)) void __utils_library_load__()
 {
     Dl_info infos;
     dladdr((void*)&__utils_library_load__, &infos);
     shared_library_load(infos.dli_fbase);
 }
 
-__attribute__((destructor)) UTILS_LOCAL_API void __utils_library_unload__()
+__attribute__((destructor)) void __utils_library_unload__()
 {
     Dl_info infos;
     dladdr((void*)&__utils_library_load__, &infos);
