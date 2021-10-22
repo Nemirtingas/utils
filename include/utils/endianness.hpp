@@ -30,6 +30,17 @@ namespace utils {
         template<typename T, size_t byte_count>
         struct ByteSwapImpl
         {
+            constexpr static inline T swap(T v)
+            {
+                for (int i = 0; i < (byte_count/2); ++i)
+                {
+                    uint8_t tmp = reinterpret_cast<uint8_t*>(&v)[i];
+                    reinterpret_cast<uint8_t*>(&v)[i] = reinterpret_cast<uint8_t*>(&v)[byte_count - i - 1];
+                    reinterpret_cast<uint8_t*>(&v)[byte_count - i - 1] = tmp;
+                }
+
+                return v;
+            }
         };
 
         template<typename T>
@@ -88,21 +99,22 @@ namespace utils {
         static constexpr bool big = magic_ == 0x01;
         static_assert(little || middle || big, "Cannot determine endianness!");
 
-        template<typename T>
+        template<typename T, size_t Size = sizeof(T)>
         constexpr static inline T net_swap(T v)
         {
             if(Endian::little)
             {
-                return ByteSwapImpl<T, sizeof(T)>::swap(v);
+                return ByteSwapImpl<T, Size>::swap(v);
             }
 
             return v;
         }
 
-        template<typename T>
+        template<typename T, size_t Size = sizeof(T)>
         constexpr static inline T swap(T v)
         {
             return ByteSwapImpl<T, sizeof(T)>::swap(v);
+            return ByteSwapImpl<T, Size>::swap(v);
         }
     
     private:
