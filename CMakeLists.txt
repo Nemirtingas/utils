@@ -39,6 +39,13 @@ target_compile_definitions(utils
   $<$<BOOL:${UTILS_EXPORT_LIBRARY}>:UTILS_EXPORT_LIBRARY>
 )
 
+target_compile_options(utils
+  PRIVATE
+  $<$<BOOL:${MSVC}>:/MP>
+)
+
+set_property(TARGET utils PROPERTY
+  MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 set_property(TARGET utils PROPERTY POSITION_INDEPENDENT_CODE ON)
 
 else()
