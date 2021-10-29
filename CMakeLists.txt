@@ -1,5 +1,6 @@
 #CMAKE_TOOLCHAIN_FILE
 
+cmake_policy(SET CMP0091 NEW)
 project(utils)
 cmake_minimum_required(VERSION 3.0)
 
@@ -25,7 +26,7 @@ set(UTILS_HEADERS
 ## Build library
 if(UTILS_EXPORT_LIBRARY)
 add_library(utils STATIC
-	src/utils_exports.cpp
+  src/utils_exports.cpp
 )
 
 target_include_directories(utils
@@ -59,30 +60,23 @@ target_include_directories(utils
 endif()
 
 set_target_properties(utils PROPERTIES EXPORT_NAME Utils)
-add_library(Utils::Utils ALIAS utils)
 
 ##################
 ## Install rules
 install(TARGETS utils EXPORT UtilsTargets
-	RUNTIME DESTINATION bin
-	LIBRARY DESTINATION lib
-	ARCHIVE DESTINATION lib
+  RUNTIME DESTINATION bin
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib
 )
 
 install(FILES ${UTILS_HEADERS}
-	DESTINATION include/utils
+  DESTINATION include/utils
 )
 
 # Export targets
 install(
-	EXPORT UtilsTargets
-	FILE UtilsTargets.cmake
-	NAMESPACE Utils::
-	DESTINATION lib/cmake/Utils
-)
-
-# Export config
-install(
-	FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/UtilsConfig.cmake
-	DESTINATION lib/cmake/Utils
+  EXPORT UtilsTargets
+  FILE UtilsConfig.cmake
+  NAMESPACE Utils::
+  DESTINATION lib/cmake/Utils
 )
